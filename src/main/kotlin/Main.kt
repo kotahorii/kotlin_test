@@ -1,6 +1,13 @@
 fun main() {
-    val map = mapOf(1 to "one", 2 to "two", 3 to "three")
-    println(map[2])
+    printOddOrEvenNumberText(3)
 }
 
 
+fun printOddOrEvenNumberText(num: Int) {
+    val text = if (num % 2 == 1) {
+        "偶数"
+    } else {
+        "奇数"
+    }
+    println(text)
+}
