@@ -1,13 +1,14 @@
 fun main() {
-    val list = listOf<Int>(1, 2, 5, 6, 10)
-
-    for (i in list) {
-        println("i is $i")
-    }
+    val dog = Dog("Takashi")
+    dog.cries()
+    println(dog.name)
 }
 
-class Human {
-    fun showName(name: String) {
-        println(name)
-    }
+open class Animal(val name: String) {
+    fun showName() = println("name is $name")
+    open fun cries() = println("")
+}
+
+class Dog(name: String) : Animal(name) {
+    override fun cries() = println("bowwow")
 }
