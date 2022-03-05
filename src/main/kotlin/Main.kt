@@ -1,29 +1,42 @@
+import kotlin.reflect.KProperty
+
 fun main() {
-    val executorDelegate = AddCalculationExecutorDelegate(CommonCalculationExecutor("Takashi"))
-    executorDelegate.printStartMessage()
-    println(executorDelegate.calc(8, 11))
+    var delegatePerson = DelegatePerson()
+    delegatePerson.name = "Takehata"
+    delegatePerson.address = "Tokyo"
+    println(delegatePerson.name)
+    println(delegatePerson.address)
 }
 
 
-interface CalculationExecutor {
-    val message: String
-    fun calc(num1: Int, num2: Int): Int
-    fun printStartMessage()
+class DelegatePerson {
+    var name: String by DelegateWithMessage()
+    var address: String by DelegateWithMessage()
 }
 
-class CommonCalculationExecutor(override val message: String = "calc") : CalculationExecutor {
-    override fun calc(num1: Int, num2: Int): Int {
-        throw IllegalStateException("Not implements calc")
+class DelegateWithMessage<T> {
+    private var value: T? = null
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        println("${property.name}を取得します")
+        return value!!
     }
 
-    override fun printStartMessage() {
-        println("start $message")
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        println("${property.name}を更新します")
+        this.value = value
     }
 }
 
-class AddCalculationExecutorDelegate(private val calculationExecutor: CalculationExecutor) :
-    CalculationExecutor by calculationExecutor {
-    override fun calc(num1: Int, num2: Int): Int {
-        return num1 + num2
+class DelegateWithMessageString {
+    private var value: String? = null
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
+        println("${property.name}を取得します")
+        return value!!
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+        println("${property.name}を更新します")
+        this.value = value
     }
 }
