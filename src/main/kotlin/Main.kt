@@ -1,7 +1,13 @@
-fun printMessageLength(message: String?) {
-    println(message?.length)
+fun main() {
+    val list = listOf<Int>(1, 2, 5, 6, 10)
+
+    for (i in list) {
+        println("i is $i")
+    }
 }
 
-fun main() {
-    printMessageLength("takashi")
+class Human {
+    fun showName(name: String) {
+        println(name)
+    }
 }
